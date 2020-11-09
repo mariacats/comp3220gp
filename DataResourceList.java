@@ -12,13 +12,11 @@ public class DataResourceList {
 		resourceList = new ArrayList<DataResource>();
 	}
 	
-	DataResourceList(String title, String filename){
-		dr = new DataResource (title, filename);
-		resourceList.add(dr);
-	}
-	
 	public void addDataResource(DataResource dr) {
 		resourceList.add(dr);
 	}
-
+	
+	public void displayDataResources() {
+		
+	}
 }

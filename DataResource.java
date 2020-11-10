@@ -113,8 +113,6 @@ public class DataResource {
 				e.printStackTrace();
 			}
 		}
-		
-	//sc.close();	
 	}
 	
 	public void printDR() {

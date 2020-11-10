@@ -18,13 +18,17 @@ public class DataResource {
 
 	DataResource() {
 		Scanner sc  = new Scanner(System.in);
-		int i = 0;
 		createDirectory();
-		while (i!=2){
-			addFile();
+		addFile();
+		int i = 0;
+		while (i!=3){
+			if(i == 1)
+				addFile();
+			if(i == 2)
+				removeFile();
 			
 			// Add another or go back to main menu
-			System.out.println("Press (1) to add another file. Press (2) to return to Main Menu.");
+			System.out.println("Press (1) to add another file. Press (2) to remove a file. Press (3) to return to Main Menu.");
 			i = sc.nextInt();
 		}
 
@@ -71,6 +75,71 @@ public class DataResource {
 		
 		f.renameTo(new File(this.dir+"\\"+f.getName()));
 
+	}
+	
+	public void removeFile() {
+		Scanner sc = new Scanner(System.in);
+		int in;
+		String filepath, reloc;
+		
+		printDR();
+		System.out.println("Enter the name of the file you would like removed from your Data Resource: ");
+		filepath = this.dir + "\\" + sc.nextLine();
+		System.out.println("Would you like to (1) Delete, or (2) Refactor?: ");
+		in = sc.nextInt();
+		sc.nextLine();
+		if(in == 1) {
+			try {
+				File f = new File(filepath);
+				if(f.delete()) {
+					System.out.println("Your file was successfully deleted");
+				} else {
+					System.out.println("Your file failed to delete. Check if file exists.");
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else if(in == 2) {
+			System.out.println("Where you would like to refactor to?: ");
+			reloc = sc.nextLine();
+			try {
+				File f = new File(filepath);
+				if(f.renameTo(new File(reloc+"\\"+f.getName()))) {
+					System.out.println("Your file was successfully refactored");
+				} else {
+					System.out.println("Your file failed to refactor. Check if file exists.");
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	//sc.close();	
+	}
+	
+	public void printDR() {
+		String[] fileNames;
+		
+		File f = new File(this.dir);
+		fileNames = f.list();
+		for(String fileName : fileNames) {
+			System.out.println(fileName);
+		}
+	}
+	
+	public void editMenu() {
+		Scanner sc = new Scanner(System.in);
+		int i = 0;
+		while (i!=3){
+			if(i == 1)
+				addFile();
+			if(i == 2)
+				removeFile();
+			
+			// Add another or go back to main menu
+			System.out.println("Press (1) to add a file. Press (2) to remove a file. Press (3) to return to Main Menu.");
+			i = sc.nextInt();
+		}
 	}
 
 }
